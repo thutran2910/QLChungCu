@@ -4,7 +4,7 @@ from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class Resident(AbstractUser):
-    avatar = CloudinaryField(null=True)
+    avatar = CloudinaryField(null=False)
 
     def __str__(self):
         return self.username
@@ -22,7 +22,12 @@ class Bill(models.Model):
     issue_date = models.DateField()
     due_date = models.DateField()
     bill_type = models.CharField(max_length=50)
-    payment_status = models.CharField(max_length=10, default='UNPAID')
+    status_choices = [
+        ('UNPAID', 'Unpaid'),
+        ('PAID', 'Paid'),
+    ]
+    payment_status = models.CharField(max_length=10, choices=status_choices, default='UNPAID')
+
 
     def __str__(self):
         return self.bill_type
@@ -40,10 +45,14 @@ class Item(models.Model):
         return self.name
 
 class Feedback(models.Model):
+    title = models.CharField(max_length=70, default='Mất điện')
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
     content = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
 class Survey(models.Model):
     title = models.CharField(max_length=100)
