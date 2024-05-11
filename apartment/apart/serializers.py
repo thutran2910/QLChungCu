@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Resident, Flat, Bill, Item, Feedback, Survey, FaMember
+from .models import Resident, Flat, Bill, Item, Feedback, Survey, FaMember, SurveyResult
 
 
 class ResidentSerializer(ModelSerializer):
@@ -49,4 +49,9 @@ class SurveySerializer(ModelSerializer):
 class FaMemberSerializer(ModelSerializer):
     class Meta:
         model = FaMember
+        fields = '__all__'
+
+class SurveyResultSerializer(ModelSerializer):
+    class Meta:
+        model = SurveyResult
         fields = '__all__'
