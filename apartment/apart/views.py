@@ -16,10 +16,9 @@ class ResidentViewSet(viewsets.ViewSet,generics.UpdateAPIView, generics.CreateAP
 
 
 
-class FlatViewSet(viewsets.ViewSet):
+class FlatViewSet(viewsets.ViewSet,generics.ListAPIView):
     queryset = Flat.objects.all()
     serializer_class = FlatSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 class BillViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Bill.objects.filter(payment_status='Paid')
