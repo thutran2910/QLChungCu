@@ -91,11 +91,27 @@ class ItemViewSet(viewsets.ModelViewSet):
 class BillViewSet(viewsets.ModelViewSet):
     serializer_class = BillSerializer
     permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         resident = self.request.user
-        if resident.is_superuser:
-            return Bill.objects.all()  # If the user is a superuser, return all bills
-        return Bill.objects.filter(resident=self.request.user, payment_status='PAID')
+        queryset = Bill.objects.all() if resident.is_superuser else Bill.objects.filter(resident=resident)
+
+        payment_status = self.request.query_params.get('payment_status', None)
+        if payment_status:
+            if payment_status.lower() == 'paid':
+                queryset = queryset.filter(payment_status='PAID')
+            elif payment_status.lower() == 'unpaid':
+                queryset = queryset.filter(payment_status='UNPAID')
+        return queryset
+
+class PaymentViewSet(viewsets.ModelViewSet): #hóa đơn chưa thanh toán
+    serializer_class = BillSerializer
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        resident = self.request.user
+        queryset = Bill.objects.filter(payment_status='UNPAID') if resident.is_superuser else Bill.objects.filter(resident=resident)
+        return queryset
+
 
 class FaMemberViewSet(viewsets.ModelViewSet):
     queryset = FaMember.objects.all()

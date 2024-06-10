@@ -5,7 +5,6 @@ from cloudinary.models import CloudinaryField
 
 class Resident(AbstractUser):
     avatar = CloudinaryField('avatar',null=True)
-    is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.username
 
@@ -56,7 +55,6 @@ class Feedback(models.Model):
 
 class Survey(models.Model):
     title = models.CharField(max_length=100)
-    creator = models.ForeignKey(Resident, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

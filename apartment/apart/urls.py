@@ -15,6 +15,7 @@ router.register('feedback', views.FeedbackViewSet, basename='feedback')
 router.register('survey', views.SurveyViewSet, basename='survey')
 router.register('surveyresult', views.SurveyResultViewSet, basename='surveyresult')
 router.register('statistics', StatisticalViewSet, basename='statistic')
+router.register('payments', views.PaymentViewSet, basename='payment')
 
 urlpatterns = [
     path('', include(router.urls)),
