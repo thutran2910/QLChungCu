@@ -4,8 +4,8 @@ from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class Resident(AbstractUser):
-    avatar = CloudinaryField(null=True)
-
+    avatar = CloudinaryField('avatar',null=True)
+    is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.username
 
@@ -18,7 +18,7 @@ class Flat(models.Model):
 
 class Bill(models.Model):
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=3)
     issue_date = models.DateField()
     due_date = models.DateField()
     bill_type = models.CharField(max_length=50)
@@ -56,13 +56,14 @@ class Feedback(models.Model):
 
 class Survey(models.Model):
     title = models.CharField(max_length=100)
+    creator = models.ForeignKey(Resident, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
 class SurveyResult(models.Model):
-    survey = models.ForeignKey(Survey, related_name='results', on_delete=models.CASCADE)
+    survey = models.ForeignKey('Survey', related_name='results', on_delete=models.CASCADE)
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
     cleanliness_rating = models.PositiveIntegerField()
     facilities_rating = models.PositiveIntegerField()
@@ -71,7 +72,6 @@ class SurveyResult(models.Model):
 
     def __str__(self):
         return self.survey.title
-
 
 class FaMember(models.Model):
     name = models.CharField(max_length=100)
