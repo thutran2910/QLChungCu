@@ -5,6 +5,8 @@ from cloudinary.models import CloudinaryField
 
 class Resident(AbstractUser):
     avatar = CloudinaryField('avatar',null=True)
+    phone = models.CharField(max_length= 13, null = True, blank = True)
+    is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.username
 
@@ -43,6 +45,14 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+class FaMember(models.Model):
+    name = models.CharField(max_length=100)
+    resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
+    numberXe = models.CharField(max_length=8)
+
+    def __str__(self):
+        return self.name
+
 class Feedback(models.Model):
     title = models.CharField(max_length=70, default='Mất điện')
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
@@ -71,10 +81,3 @@ class SurveyResult(models.Model):
     def __str__(self):
         return self.survey.title
 
-class FaMember(models.Model):
-    name = models.CharField(max_length=100)
-    resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
-    numberXe = models.CharField(max_length=8)
-
-    def __str__(self):
-        return self.name

@@ -141,8 +141,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CLIENT_ID = 'ic2zZFYbmWAnWvEPC8sYi5vLDNWGx89xDV16RmTc'
-CLIENT_SECRET='pbkdf2_sha256$600000$ZGHADA5xiugkcdcWFkMjIr$N9qmIuXwpu5CJovlnByrRNM3thRawjuoLfGqX5vHgDE='
+CLIENT_ID = 'Oyl13CtUf1P9FE39omeIFcArmR95erKvk151Jhpl'
+CLIENT_SECRET='vxPObcUCtPZ25ZxHzujWQew34clKvPioOxLJuBYY8VYKBqFreHYjOxV1lamby4SIMwYJzjIWXWeKBTd9CCLKeg8ubbBfY4p99iqHkQPHnOpbWkuhwyer9hYFjDH64x9n'
 
 REST_FRAMEWORK = {
 
@@ -155,3 +155,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+
+ZALOPAY_APP_ID = '2553'
+ZALOPAY_KEY_1 = 'PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL'
+ZALOPAY_KEY_2 = 'YkLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz'
+ZALOPAY_URL = 'https://sandbox.zalopay.com.vn/v001/tpe/payqr'  # Sandbox URL for testing
+ZALOPAY_ENDPOINT_URL ='https://sb-openapi.zalopay.vn/v2/create'
+
+
+
+

@@ -3,7 +3,7 @@ from django.urls import path, include
 from . import views
 from .admin import admin_site
 from rest_framework.routers import DefaultRouter
-from .views import StatisticalViewSet
+from .views import StatisticalViewSet, PaymentViewSet
 
 router = DefaultRouter()
 router.register('residents', views.ResidentViewSet, basename='resident')
@@ -11,15 +11,17 @@ router.register('flats', views.FlatViewSet, basename='flat')
 router.register('items', views.ItemViewSet, basename='item')
 router.register('famembers', views.FaMemberViewSet, basename='famember')
 router.register('bills', views.BillViewSet, basename='bill')
+router.register('payment', views.PaymentViewSet, basename='payment')
 router.register('feedback', views.FeedbackViewSet, basename='feedback')
 router.register('survey', views.SurveyViewSet, basename='survey')
 router.register('surveyresult', views.SurveyResultViewSet, basename='surveyresult')
 router.register('statistics', StatisticalViewSet, basename='statistic')
-router.register('payments', views.PaymentViewSet, basename='payment')
 
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin_site.urls),
     path('api/', include(router.urls)),
+    path('payment/', views.payment_view, name='payment'),
+    #path('zalo/payment/', views.create_payment, name='zalo_payment'),
     path('api/statistics/<int:pk>/', StatisticalViewSet.as_view({'get': 'retrieve'}), name='statistics-api'),
 ]

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib import admin
 from django.db.models import Count, Max
 from django.shortcuts import render
 from django.template.response import TemplateResponse
